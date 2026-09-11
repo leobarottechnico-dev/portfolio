@@ -27,7 +27,7 @@ import {services} from '../data.js';
       <div class="cinematic-intro">
         <div class="cinematic-intro-copy">
           <h1 id="hero-title">Agentic SEO,<br />directed by <span>Leo.</span></h1>
-          <p>I turn search signals into practical systems for visibility, opportunity and sustainable growth.</p>
+          <p>I help your business get found through Agentic SEO—and streamline everyday work with business automation and simple web apps.</p>
         </div>
         <div class="actions">
           <a class="button" href="/contact/"><span>Book a Strategy Call</span></a>
@@ -64,20 +64,22 @@ import {services} from '../data.js';
 
   <section class="service-section section" id="services">
     <div class="wrap">
-      <div class="section-heading"><h2>Search is the start.<br /><em>The business is the point.</em></h2><p>SEO leads the strategy. Content, websites and practical support help put it to work.</p></div>
+      <div class="section-heading"><h2>Search is the start.<br /><em>The business is the point.</em></h2><p>Agentic SEO helps customers find you. Content and websites help them choose you. Business automation, simple apps and practical support help your team handle what comes next.</p></div>
       <div class="service-list">{services.map((s,i)=><a href={`/services/${s.slug}/`}><span class="service-number">{String(i+1).padStart(2,'0')}</span><h3>{s.name}</h3><p>{s.summary}</p><span class="service-action">View</span></a>)}</div>
     </div>
   </section>
 
   <section class="wrap section" id="approach">
     <div class="section-heading"><h2>A clear process.<br />A person accountable.</h2><p>I direct the work. Codex helps with research, analysis and implementation. You know who is making the decisions.</p></div>
-    <ol class="process">{[['Diagnose','Understand the business, the website and the search opportunity.'],['Prioritize','Agree what matters first and what a useful outcome looks like.'],['Build','Turn the plan into pages, content and technical improvements.'],['Measure & improve','Review the evidence and use it to decide what comes next.']].map(([t,d])=><li><h3>{t}</h3><p>{d}</p></li>)}</ol>
+    <ol class="process">{[['Diagnose','Understand your customers, website and the manual tasks slowing your team down.'],['Prioritize','Agree what matters first and what a useful outcome looks like.'],['Build','Turn the agreed plan into pages, content, automations or a focused web app.'],['Measure & improve','Test the work, review the evidence and decide what comes next.']].map(([t,d])=><li><h3>{t}</h3><p>{d}</p></li>)}</ol>
   </section>
 
-  <section class="wrap about-block section"><h2>Your SEO partner.<br /><em>Hi, I’m Leo.</em></h2><div><p class="intro">RankwithLeo brings together my work in Agentic SEO, content, local search and website creation.</p><p>You work directly with me, from the first conversation through the decisions and the delivery. I work with small businesses worldwide, including trades, recruiters and outsourcing agencies.</p><a class="text-link" href="/about/">More about working with me</a></div></section>
+  <section class="wrap about-block section"><h2>Your SEO partner.<br /><em>Hi, I’m Leo.</em></h2><div><p class="intro">I bring together Agentic SEO, content and websites with business automation and basic app development—helping customers find you and helping your team work more efficiently.</p><p>You work directly with me, from the first conversation through the decisions and the delivery. I work with small businesses worldwide, including trades, recruiters and outsourcing agencies.</p><a class="text-link" href="/about/">More about working with me</a></div></section>
   <section class="wrap section faq" aria-labelledby="faq-title">
     <h2 id="faq-title">A few useful answers.</h2>
     {[
+      ['Can you streamline repetitive business tasks?', 'Yes. I offer business automation for suitable tasks such as enquiry handoffs, internal reminders, data updates and routine reporting. We map the process, confirm tool compatibility and agree on approvals and error handling before enabling it.'],
+      ['Can you build a simple app for my business?', 'Yes. Basic app development covers focused web tools such as internal trackers, request forms, calculators and simple dashboards. We agree on the features, data needs, hosting and support before building; complex enterprise or native mobile apps are outside this standard scope.'],
       ['What is Agentic SEO—and how does it help my business?', 'Agentic SEO uses AI agents to support research, analysis and implementation, with a person directing the work. I use Codex to help turn search opportunities into useful content and website improvements, with the goal of attracting relevant visitors and making it easier for them to enquire.'],
       ['Do you work with businesses in the UK, Australia and the US?', 'Yes. I work remotely with businesses in these markets and worldwide. We plan around your audience, service area and local language, so your website speaks to the customers you want to reach.'],
       ['How will we work across time zones?', 'Before starting, we agree on meeting windows, response expectations and a shared place for updates. Written progress notes and clear next steps help keep work moving without requiring you to attend every discussion.'],

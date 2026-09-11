@@ -1,4 +1,24 @@
 export const serviceDetails = {
+  'business-automation': {
+    headline: 'Less repetitive work. Clearer handoffs.',
+    fit: 'For owners and teams spending time copying information between tools, chasing task updates or preparing the same reports.',
+    outcome: 'Fewer manual steps. More consistent processes.',
+    measure: 'We compare the agreed workflow before and after testing: manual steps, time spent, successful runs and exceptions that need attention. Savings depend on the process and tools; there is no fixed time-saving guarantee.',
+    graph: 'From enquiry to an assigned next step',
+    deliverables: ['A map of one agreed process, its inputs, owners and repetitive steps, with a clear decision on what should stay manual.', 'Connections between supported forms, spreadsheets, business tools or APIs, subject to access and platform limits.', 'Agreed approval points, validation and failure notifications so incomplete or unexpected data can be reviewed by a person.', 'Tests using sample data, operating instructions and a handover covering ownership, monitoring and any ongoing tool costs.'],
+    steps: ['Map the process and choose a useful, limited starting point.', 'Build the workflow and test normal cases, errors and human approvals.', 'Enable the approved workflow and hand over monitoring and maintenance responsibilities.'],
+    faq: ['What business tasks can you automate?', 'Examples include moving form enquiries into a tracker, assigning follow-up tasks, sending internal reminders and assembling routine reports. We check whether your tools support the required connections before committing to a solution.']
+  },
+  'basic-app-development': {
+    headline: 'A small app for a real business need.',
+    fit: 'For small businesses that need a focused internal tool or an early prototype, rather than a complex software platform.',
+    outcome: 'A clearer workflow. A tool built around the task.',
+    measure: 'We test whether users can complete the agreed tasks, whether inputs and outputs behave correctly, and whether the interface works at the required screen sizes. Success is assessed against the agreed feature list, not a promise of adoption or revenue.',
+    graph: 'A focused app, from input to action',
+    deliverables: ['A concise feature list, user journey and prototype that define what the first version will and will not do.', 'A responsive web interface for an agreed use case such as a task tracker, request tool, calculator or simple dashboard.', 'A plan for storage, permissions and any integrations. Authentication and backend functionality are included only when explicitly scoped.', 'Checks of key tasks, input validation and error states, plus setup instructions and an agreed hosting and maintenance handover.'],
+    steps: ['Define the users, the task and the smallest useful feature set.', 'Build a prototype, review it together and implement the agreed version.', 'Test the core journeys and hand over the app with clear support boundaries.'],
+    faq: ['What does basic app development include?', 'It covers small web-based tools and prototypes with a focused feature set. Native mobile apps, complex enterprise platforms and regulated or safety-critical systems are not part of this standard offer; specialist requirements need a separate assessment.']
+  },
   'agentic-seo': {
     headline: 'Get found for the work you want to win.',
     fit: 'For businesses with a website but no clear plan for turning search demand into relevant enquiries.',

@@ -20,7 +20,7 @@ RankwithLeo presents Leo's work and services, establishes trust through real cli
 
 ## Positioning
 
-Agentic SEO is the primary specialty. Supporting capabilities include website content creation, local SEO, custom website creation, custom WordPress pages for client projects, and virtual assistance. The business is founder-led: clients work directly with Leo while benefiting from an agent-assisted delivery model.
+Agentic SEO is the primary specialty. Supporting capabilities include website content creation, local SEO, custom website creation, business automation, basic app development, custom WordPress pages for client projects, and virtual assistance. Automation covers scoped workflows such as enquiry handoffs, reminders, data updates and reporting. Basic app development covers focused web tools and prototypes, not enterprise platforms or native mobile apps. Access, approvals, integrations, hosting and maintenance are agreed per project. The business is founder-led: clients work directly with Leo while benefiting from an agent-assisted delivery model.
 
 ## Operating Context
 

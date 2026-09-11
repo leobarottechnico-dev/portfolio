@@ -4,6 +4,7 @@ import LocalRankMap from '../../components/LocalRankMap.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import WebsiteWireframe from '../../components/WebsiteWireframe.astro';
 import SupportTeam from '../../components/SupportTeam.astro';
+import BusinessWorkflow from '../../components/BusinessWorkflow.astro';
 import {services} from '../../data.js';
 import {serviceDetails} from '../../service-details.js';
 import {serviceFaqs} from '../../service-faqs.js';
@@ -15,13 +16,16 @@ const isLocal = s.slug === 'local-seo';
 const isContent = s.slug === 'website-content';
 const isWebsite = s.slug === 'custom-websites';
 const isSupport = s.slug === 'growth-support';
+const isApp = s.slug === 'basic-app-development';
+const isOperations = isApp || s.slug === 'business-automation';
 ---
 <Layout title={s.name} description={s.summary}>
   <article class="wrap service-detail">
     <a class="text-link" href="/services/">All services</a>
     <header class="detail-lead">
-      <div><h1>{s.name}<span>{d.headline}</span></h1><p class="intro">{s.body}</p><div class="actions"><a class="button" href="/contact/">Book a Strategy Call</a><a class="text-link" href="/audit/">Request an SEO Audit</a></div></div>
+      <div><h1>{s.name}<span>{d.headline}</span></h1><p class="intro">{s.body}</p><div class="actions"><a class="button" href="/contact/">Book a Strategy Call</a><a class="text-link" href={isOperations ? "/contact/" : "/audit/"}>{isOperations ? "Discuss Your Workflow" : "Request an SEO Audit"}</a></div></div>
       <figure class="service-graph">
+        {isOperations ? <><figcaption>{d.graph}<small>Illustrative workflow—not a live app or a connected automation.</small></figcaption><BusinessWorkflow app={isApp} /><p>Scope, data access, approvals and ongoing support are agreed before implementation.</p></> : <>
         <figcaption>{isSupport ? 'Specialist support. One person accountable.' : isWebsite ? 'Every element has a purpose' : isContent ? 'Build topical authority through connected content' : isLocal ? 'Your local search visibility' : d.graph}<small>{isSupport ? 'Example team setup—roles and staffing are agreed around your scope.' : isWebsite ? 'An example wireframe: structure first, visual design next.' : isContent ? 'Example topic map for a plumbing business. Lines represent internal links.' : isLocal ? 'Illustrative ranking heat map—not live Google Maps data.' : 'Illustrative direction—not actual results or a forecast.'}</small></figcaption>
         {isSupport ? <SupportTeam /> : isWebsite ? <WebsiteWireframe /> : isContent ? <TopicMap /> : isLocal ? <LocalRankMap /> : <svg viewBox="0 0 480 300" role="img" aria-labelledby="chart-title chart-desc">
           <title id="chart-title">Illustrative improvement in {d.graph.toLowerCase()}</title>
@@ -37,12 +41,13 @@ const isSupport = s.slug === 'growth-support';
           <g fill="currentColor" font-size="15"><text x="36" y="269">Starting point</text><text x="210" y="269">Improve</text><text x="456" y="269" text-anchor="end">Review</text></g>
         </svg>}
         <p>{isSupport ? 'You agree priorities with Leo. Leo coordinates the agreed specialists, assigns tasks, reviews delivery and keeps you updated—so you have one clear point of contact.' : isWebsite ? 'Guide visitors from understanding your offer to taking action. Your final layout is shaped around your content, audience and goals—not a fixed template.' : isContent ? 'Connect your core topic, service pages and useful answers into a coherent body of content. This illustrates a content structure—not an authority score or a ranking guarantee.' : isLocal ? 'Green 1 = example position #1 at a search location. Fictional map and rankings: actual positions vary by search, location and time. Number-one rankings are not guaranteed.' : isAgentic ? 'A turning point, illustrated. The steep rise represents the ambition—not a promised speed, timeline or result.' : 'Progress is rarely a straight line. The work starts with a baseline and improves through review.'}</p>
+        </>}
       </figure>
     </header>
     <section class="detail-section"><h2>Is this right for your business?</h2><div><p class="intro">{d.fit}</p><p>{d.outcome} That is the direction we work towards, with priorities based on your starting point and available resources.</p></div></section>
     <section class="detail-section"><h2>What we can work on</h2><div class="detail-deliverables">{s.items.map((item,i)=><div><h3>{item}</h3><p>{d.deliverables[i]}</p></div>)}</div></section>
     <section class="detail-section"><h2>How the work happens</h2><ol class="detail-steps">{d.steps.map(step=><li>{step}</li>)}</ol></section>
-    <section class="detail-section"><h2>How we evaluate progress</h2><div><p>{d.measure}</p><p>Access, tracking and reporting are agreed as part of the scope. Specific rankings, leads, revenue or hiring outcomes are not guaranteed.</p></div></section>
+    <section class="detail-section"><h2>How we evaluate progress</h2><div><p>{d.measure}</p><p>Access, tracking and reporting are agreed as part of the scope. Specific rankings, leads, revenue, time savings or hiring outcomes are not guaranteed.</p></div></section>
     <section class="detail-section" aria-labelledby="service-faq-heading"><h2 id="service-faq-heading">{s.name} FAQs</h2><div class="faq">{[d.faq, ...serviceFaqs[s.slug]].map(([question, answer]) => <details><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}<details><summary>What will the project cost and how long will it take?<span aria-hidden="true">+</span></summary><p>Share your website, goals and most urgent needs. We agree on deliverables, timing, responsibilities and cost before work begins; additional work requires an agreed scope.</p></details></div></section>
     <section class="detail-contact"><h2>Let’s choose your next useful step.</h2><p>Tell me what you want your business to achieve and where things feel stuck. You work directly with Leo to decide what belongs in the plan.</p><div class="actions"><a class="button" href="/contact/">Book a Strategy Call</a><a class="text-link" href="/services/">Compare all services</a></div></section>
   </article>

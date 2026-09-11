@@ -1,4 +1,16 @@
 export const serviceFaqs = {
+  'business-automation': [
+    ['Can you work with the tools we already use?', 'We first check your existing tools, available APIs or integrations, account permissions and subscription limits. Keeping a familiar setup may be the best option; new tools and recurring costs need your approval.'],
+    ['Will the automation run without human checks?', 'Only where that is appropriate and agreed. We can include review steps before consequential actions and route errors to a person. AI-generated output needs suitable review rather than being assumed correct.'],
+    ['How do you protect business information?', 'We agree on the minimum access and data needed, use sample data where possible during testing and discuss any third-party processing before connecting systems. Do not include passwords or sensitive customer records in your enquiry.'],
+    ['Who maintains the workflow after handover?', 'The scope identifies who monitors failures and updates connections when tools change. Ongoing support can be discussed separately; an automation should not be treated as maintenance-free.'],
+  ],
+  'basic-app-development': [
+    ['Can we start with a prototype?', 'Yes. A small prototype can help confirm the workflow before investing in more features. We agree whether it is a demonstration or a production-ready tool so there is no confusion about what is ready to use.'],
+    ['Can the app connect to an automation?', 'Yes, where the required tools support it. A form or tracker might trigger an approved workflow. Integration work, validation and failure handling are defined separately in the scope.'],
+    ['Will it work on mobile?', 'The web interface can adapt to phone, tablet and desktop screens, with the agreed journeys checked at those sizes. This does not mean a native app-store application or offline functionality is included.'],
+    ['Are hosting, logins and updates included?', 'We specify hosting, storage, authentication, third-party costs and maintenance before building. A prototype does not automatically include a secure production backend, user accounts or ongoing updates.'],
+  ],
   'agentic-seo': [
     ['What does Leo do, and what does Codex do?', 'I set priorities, check the evidence and review deliverables. Codex supports research, analysis and implementation. You have a person accountable for the work, not an unattended system making decisions for your business.'],
     ['Can you implement the recommendations?', 'Yes, implementation can be included in the agreed scope. We confirm which changes I will make, which need your developer and how approvals will work before making changes to your site.'],
