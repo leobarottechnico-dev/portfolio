@@ -1,12 +1,12 @@
 ---
+import AutomationDiagram from './AutomationDiagram.astro';
+import BusinessAppPhone from './BusinessAppPhone.astro';
 const { app = false } = Astro.props;
 const steps = app
   ? [['Enter a request', 'A focused form captures what the team needs.'], ['Review the details', 'A simple tracker makes status and ownership clear.'], ['Take the next step', 'The assigned person updates or completes the task.']]
   : [['An enquiry arrives', 'Capture the agreed details from your form.'], ['Check and route', 'Validate the information; flag exceptions for review.'], ['Assign a follow-up', 'Create a task for the right person to review.']];
 ---
-<ol class="workflow" aria-label={app ? 'Example web app journey' : 'Example automation workflow'}>
-  {steps.map(([title, text]) => <li><h3>{title}</h3><p>{text}</p></li>)}
-</ol>
+{app ? <BusinessAppPhone /> : <AutomationDiagram />}
 <style>
   .workflow { list-style:none; padding:0; margin:28px 0; }
   li { position:relative; padding:0 0 28px 28px; border-left:1px solid var(--mint); }

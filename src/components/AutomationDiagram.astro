@@ -1,0 +1,56 @@
+<svg class="automation-canvas" viewBox="0 0 480 540" role="img" aria-labelledby="automation-title automation-desc">
+  <title id="automation-title">An enquiry workflow with connected automation nodes</title>
+  <desc id="automation-desc">A form submission triggers a data check. Complete details create a task and notify the team. Missing details go to a person for review. This is a conceptual workflow, not a running integration.</desc>
+  <defs>
+    <pattern id="automation-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#60887b" opacity=".32" /></pattern>
+    <marker id="automation-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#71ddc4" stroke-width="1.5" /></marker>
+  </defs>
+  <rect width="480" height="540" rx="12" fill="#0a201c" />
+  <rect width="480" height="540" rx="12" fill="url(#automation-dots)" />
+  <g fill="none" stroke="#71ddc4" stroke-width="2" marker-end="url(#automation-arrow)">
+    <path d="M240 108V148" />
+    <path d="M240 232V258Q240 274 224 274H134Q118 274 118 290V318" />
+    <path d="M240 232V258Q240 274 256 274H346Q362 274 362 290V318" stroke-dasharray="5 5" />
+    <path d="M118 398V440" />
+  </g>
+  <g font-family="inherit" font-size="18" fill="#c0d9d0">
+    <text x="118" y="301" text-anchor="middle">Complete</text>
+    <text x="362" y="301" text-anchor="middle">Needs review</text>
+  </g>
+  <g fill="#13372f" stroke="#71ddc4" stroke-width="1.5">
+    <rect x="98" y="28" width="284" height="80" rx="12" />
+    <rect x="98" y="152" width="284" height="80" rx="12" />
+    <rect x="22" y="322" width="192" height="76" rx="12" />
+    <rect x="266" y="322" width="192" height="76" rx="12" stroke="#d5b86e" />
+    <rect x="22" y="444" width="192" height="72" rx="12" />
+  </g>
+  <g fill="none" stroke="#00dfbc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M124 48H149V83H124ZM130 58H143M130 65H143M130 72H138" />
+    <path d="M124 188L134 198L151 178" />
+    <path d="M40 340H60V368H40ZM45 350H55M45 357H52" />
+    <path d="M40 469H61V490H40ZM40 469L50 479L61 469" />
+    <circle cx="288" cy="344" r="6" stroke="#d5b86e" />
+    <path d="M278 367V362C278 350 298 350 298 362V367" stroke="#d5b86e" />
+  </g>
+  <g fill="#eff7f3" font-family="inherit" font-size="20" font-weight="650">
+    <text x="164" y="61">New enquiry</text>
+    <text x="164" y="185">Check details</text>
+    <text x="72" y="354">Create task</text>
+    <text x="307" y="354">Human check</text>
+    <text x="72" y="475">Notify team</text>
+  </g>
+  <g fill="#b8cec5" font-family="inherit" font-size="17">
+    <text x="164" y="86">Form trigger</text>
+    <text x="164" y="211">Validate &amp; route</text>
+    <text x="72" y="378">Assign an owner</text>
+    <text x="307" y="378">Resolve gaps</text>
+    <text x="72" y="498">Ready to follow up</text>
+  </g>
+  <g fill="#0a201c" stroke="#71ddc4" stroke-width="2">
+    <circle cx="240" cy="108" r="4"/><circle cx="240" cy="152" r="4"/><circle cx="240" cy="232" r="4"/>
+    <circle cx="118" cy="322" r="4"/><circle cx="362" cy="322" r="4"/><circle cx="118" cy="398" r="4"/><circle cx="118" cy="444" r="4"/>
+  </g>
+</svg>
+<style>
+  .automation-canvas { display:block; width:100%; height:auto; margin-block:24px; }
+</style>
