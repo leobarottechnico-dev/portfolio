@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { services } from '../../data.js';
+---
+
+<Layout
+  title="Services"
+  description="Founder-led Agentic SEO, local SEO, website content, custom websites and practical growth support from RankwithLeo."
+>
+  <section class="wrap section page-top services-page" aria-labelledby="services-title">
+    <header class="services-lead">
+      <div class="services-lead-copy">
+      <h1 id="services-title">
+        Make your business easier to find.
+        <em>And easier to choose.</em>
+      </h1>
+      <p class="intro">
+        Work directly with Leo to turn search opportunities into practical improvements across SEO, content and your website—so qualified customers can understand your value and take the next step.
+      </p>
+      </div>
+      <figure class="services-discovery">
+        <img src="/assets/plates/services-agentic-discovery.png" width="1254" height="1254" alt="A search lens connects AI assistants researching, preparing content and improving a website, with a path leading customers to a small business." fetchpriority="high" />
+        <figcaption>Research. Create. Implement.<span>A coordinated workflow, directed by Leo. Illustrative concept.</span></figcaption>
+      </figure>
+    </header>
+
+    <nav class="service-list" aria-label="RankwithLeo services">
+      {services.map((service, index) => (
+        <a href={`/services/${service.slug}/`}>
+          <span class="service-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <h2>{service.name}</h2>
+          <p>{service.summary}</p>
+          <span class="service-action">Explore service</span>
+        </a>
+      ))}
+    </nav>
+
+    <aside class="services-next" aria-labelledby="services-next-title">
+      <div>
+        <h2 id="services-next-title">Bring your next growth priority into focus.</h2>
+        <p>Tell Leo where your website or search visibility is getting stuck. You’ll leave the first conversation with a clearer view of the most useful next step.</p>
+      </div>
+      <div class="actions">
+        <a class="button" href="/contact/">Book a Strategy Call</a>
+        <a class="button secondary" href="/audit/">Request an SEO Audit</a>
+      </div>
+    </aside>
+  </section>
+</Layout>
+<script>
+  const illustration = document.querySelector<HTMLImageElement>('.services-discovery img');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (illustration && 'IntersectionObserver' in window) {
+    let visible = false;
+    let scrolledDown = false;
+    let played = false;
+    let previousY = window.scrollY;
+    let animation: Animation | undefined;
+    const reveal = () => {
+      if (played || !visible || !scrolledDown || !illustration.complete || !illustration.naturalWidth) return;
+      played = true;
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      if (reducedMotion.matches) return;
+      const easing = getComputedStyle(document.documentElement).getPropertyValue('--ease-out').trim() || 'cubic-bezier(0.23, 1, 0.32, 1)';
+      animation = illustration.animate([
+        { opacity: .65, transform: 'translateY(24px) scale(0.97)' },
+        { opacity: 1, transform: 'translateY(0) scale(1)' },
+      ], { duration: 800, easing });
+    };
+    const onScroll = () => {
+      if (window.scrollY > previousY) scrolledDown = true;
+      previousY = window.scrollY;
+      reveal();
+    };
+    const observer = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      reveal();
+    }, { threshold: .2 });
+    observer.observe(illustration);
+    illustration.addEventListener('load', reveal, { once: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) animation?.cancel(); });
+  }
+</script>
+<style>
+  .services-page .services-lead { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items:center; gap:clamp(28px, 4vw, 64px); }
+  .services-lead-copy { min-width:0; }
+  .services-lead h1 { max-width:14ch; font-size:clamp(2.8rem, 4.8vw, 5.5rem); line-height:1.03; }
+  .services-lead .intro { margin-top:28px; }
+  .services-discovery { min-width:0; margin:0; }
+  .services-discovery img { display:block; width:100%; height:auto; border-radius:12px; }
+  .services-discovery figcaption { padding-top:16px; font-size:1rem; font-weight:650; line-height:1.5; }
+  .services-discovery figcaption span { display:block; margin-top:4px; color:var(--muted); font-size:.85rem; font-weight:400; }
+  @media(max-width:760px) {
+    .services-page .services-lead { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .services-lead h1 { font-size:clamp(2.8rem, 10vw, 4.4rem); }
+    .services-discovery { width:100%; max-width:560px; }
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Projects from '../components/Projects.astro';
+import {services} from '../data.js';
+---
+<Layout>
+  <section class="cinematic-hero" data-cinematic-hero aria-labelledby="hero-title" aria-describedby="cinematic-summary">
+    <div class="cinematic-sticky">
+      <div class="cinematic-media" aria-hidden="true">
+        <img class="cinematic-poster" src="/assets/plates/hero-portrait-polished.png" alt="" width="1672" height="941" fetchpriority="high" />
+        <img class="cinematic-poster cinematic-enhancement" data-cyborg src="/assets/plates/hero-cyborg.png" alt="" width="1672" height="941" decoding="async" />
+        <video
+          class="cinematic-film"
+          src="/assets/cinematic/rankwithleo-sequence.mp4"
+          poster="/assets/plates/hero-portrait-polished.png"
+          preload="metadata"
+          muted
+          playsinline
+          tabindex="-1"
+        ></video>
+        <img class="cinematic-poster cinematic-bullseye" data-bullseye src="/assets/plates/hero-bullseye.png" alt="" width="1672" height="941" decoding="async" />
+      </div>
+
+      <div class="cinematic-shade" aria-hidden="true"></div>
+      <a class="cinematic-skip" href="#work">Skip cinematic</a>
+
+      <div class="cinematic-intro">
+        <div class="cinematic-intro-copy">
+          <h1 id="hero-title">Agentic SEO,<br />directed by <span>Leo.</span></h1>
+          <p>I turn search signals into practical systems for visibility, opportunity and sustainable growth.</p>
+        </div>
+        <div class="actions">
+          <a class="button" href="/contact/"><span>Book a Strategy Call</span></a>
+          <a class="button secondary" href="/audit/"><span>Request an SEO Audit</span></a>
+        </div>
+      </div>
+
+      <div class="cinematic-chapters" aria-hidden="true">
+        <p data-cinematic-chapter>Human judgment.<br />AI-agent power.</p>
+        <p data-cinematic-chapter>A sharper lens<br />on search.</p>
+        <p data-cinematic-chapter>Find the businesses behind the data.</p>
+        <p data-cinematic-chapter>Aim strategy at the right opportunity.</p>
+        <p data-cinematic-chapter>Keep your business<br />goal in sight.</p>
+      </div>
+
+      <div class="cinematic-status">
+        <span class="cinematic-progress" aria-hidden="true"><i></i></span>
+        <p>Illustrative growth story. Not client performance data.</p>
+      </div>
+    </div>
+
+    <p class="visually-hidden" id="cinematic-summary">
+      Leo's portrait transforms into a blue-eyed cyborg, symbolizing human judgment empowered by AI agents. The original magnifying-glass zoom footage continues into illustrative business growth and Leo as an archer. The ending reveals an arrow embedded in the red centre of a bullseye before transitioning to selected clients. This symbolic sequence contains no actual client metrics or guaranteed outcomes.
+    </p>
+  </section>
+
+  <section class="wrap section selected-work" id="work" tabindex="-1">
+    <div class="section-heading">
+      <div><h2>The work behind<br />the thinking.</h2><p>Projects across recruitment, trades, renovations and real estate.</p></div>
+      <a class="text-link" href="/work/">Explore all work</a>
+    </div>
+    <Projects />
+  </section>
+
+  <section class="service-section section" id="services">
+    <div class="wrap">
+      <div class="section-heading"><h2>Search is the start.<br /><em>The business is the point.</em></h2><p>SEO leads the strategy. Content, websites and practical support help put it to work.</p></div>
+      <div class="service-list">{services.map((s,i)=><a href={`/services/${s.slug}/`}><span class="service-number">{String(i+1).padStart(2,'0')}</span><h3>{s.name}</h3><p>{s.summary}</p><span class="service-action">View</span></a>)}</div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="approach">
+    <div class="section-heading"><h2>A clear process.<br />A person accountable.</h2><p>I direct the work. Codex helps with research, analysis and implementation. You know who is making the decisions.</p></div>
+    <ol class="process">{[['Diagnose','Understand the business, the website and the search opportunity.'],['Prioritize','Agree what matters first and what a useful outcome looks like.'],['Build','Turn the plan into pages, content and technical improvements.'],['Measure & improve','Review the evidence and use it to decide what comes next.']].map(([t,d])=><li><h3>{t}</h3><p>{d}</p></li>)}</ol>
+  </section>
+
+  <section class="wrap about-block section"><h2>Your SEO partner.<br /><em>Hi, I’m Leo.</em></h2><div><p class="intro">RankwithLeo brings together my work in Agentic SEO, content, local search and website creation.</p><p>You work directly with me, from the first conversation through the decisions and the delivery. I work with small businesses worldwide, including trades, recruiters and outsourcing agencies.</p><a class="text-link" href="/about/">More about working with me</a></div></section>
+  <section class="wrap section faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">A few useful answers.</h2>
+    {[
+      ['What is Agentic SEO—and how does it help my business?', 'Agentic SEO uses AI agents to support research, analysis and implementation, with a person directing the work. I use Codex to help turn search opportunities into useful content and website improvements, with the goal of attracting relevant visitors and making it easier for them to enquire.'],
+      ['Do you work with businesses in the UK, Australia and the US?', 'Yes. I work remotely with businesses in these markets and worldwide. We plan around your audience, service area and local language, so your website speaks to the customers you want to reach.'],
+      ['How will we work across time zones?', 'Before starting, we agree on meeting windows, response expectations and a shared place for updates. Written progress notes and clear next steps help keep work moving without requiring you to attend every discussion.'],
+      ['Can you help me hire virtual staff?', 'Yes. We can scope support for defining roles, sourcing and screening candidates, and coordinating onboarding. Tell me which tasks you need covered and your budget; we will agree on my responsibilities before recruitment begins. Candidate availability and hiring timelines depend on the role.'],
+      ['Can you support another virtual agency or outsourcing team?', 'Yes. We can discuss white-label or overflow support for SEO, content, website tasks and virtual assistance. We agree on deliverables, confidentiality, client communication and who reviews the work, so the support fits your existing team.'],
+      ['Will I work with Leo directly or with a team?', 'You work directly with me on priorities, decisions and delivery. If your scope needs additional specialists or virtual staff, we agree on their involvement and responsibilities first.'],
+      ['Can you improve my existing WordPress website?', 'Yes. I can work on custom pages, content and SEO improvements without assuming you need a full rebuild. The aim is a clearer, more useful website that helps visitors understand your offer and take the next step.'],
+      ['Can we start small and add support as the business grows?', 'Yes. We can begin with a focused audit or a defined set of tasks, then review the priorities before expanding. Scope, timing and cost are agreed before additional work starts.'],
+      ['Do you guarantee rankings, leads or hires?', 'No. Search performance, customer decisions and hiring outcomes depend on factors beyond our control. We agree on the work, useful measures of progress and regular reviews, with no promises of specific rankings, revenue or placements.'],
+    ].map(([q, a]) => <details><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}
+  </section>
+  <section class="closing"><div class="wrap"><p class="handwriting">A clearer next move starts here.</p><h2>Let’s find your<br />search opportunity.</h2><div class="actions"><a class="button" href="/contact/">Book a Strategy Call</a><a class="text-link" href="/audit/">Start with an SEO audit</a></div></div></section>
+  <script src="../scripts/cinematic-hero.ts"></script>
+</Layout>

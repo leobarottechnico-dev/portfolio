@@ -1,0 +1,4 @@
+/* Keep the final diagnosis clear of the rising trace. */
+@media (min-width:701px) {
+  .stage-3 .annotation { margin-top:72px; }
+}

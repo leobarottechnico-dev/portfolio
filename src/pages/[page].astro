@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+export function getStaticPaths(){return ['contact','audit','privacy','terms'].map(page=>({params:{page}}));}
+const page=Astro.params.page;const audit=page==='audit';const inquiry=page==='contact'||audit;const title=inquiry?(audit?'Request an SEO audit':'Let’s talk about your business'):page==='privacy'?'Privacy notice':'Website terms';
+---
+<style>
+  #brief-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 880px;
+    margin-top: 36px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  #brief-form label {
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.5;
+  }
+  #brief-form > label:nth-of-type(n+3),
+  #brief-form > button, #form-status, #brief-output { grid-column: 1 / -1; }
+  #brief-form input, #brief-form textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
+    padding: 14px 16px;
+    border: 1px solid #77998d;
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--paper);
+    font: inherit;
+    font-weight: 400;
+    line-height: 1.5;
+    caret-color: var(--mint);
+  }
+  #brief-form input::placeholder { color: #b8cec5; opacity: 1; }
+  #brief-form textarea { resize: vertical; min-height: 160px; }
+  #brief-form input:focus-visible, #brief-form textarea:focus-visible {
+    outline: 2px solid var(--mint);
+    outline-offset: 3px;
+  }
+  #brief-form button { justify-self: start; white-space: normal; max-width: 100%; }
+  #form-status { margin: 0; line-height: 1.5; }
+  #form-status:empty { display: none; }
+  #brief-output:not([hidden]) {
+    display: grid;
+    gap: 20px;
+    min-width: 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 640px) {
+    #brief-form { grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 28px; }
+    #brief-form button { width: 100%; }
+  }
+</style>
+<Layout title={title} noindex={true}><section class="wrap section page-top reading"><h1>{title}<em>.</em></h1>{inquiry?<><p class="intro">{audit?'Share your website and the question you want answered.':'Tell me what you’re working on and where you want to go.'}</p><div class="notice"><strong>Preview: enquiries are not connected yet.</strong><p>You can prepare and copy a brief below. Nothing is sent or stored. Leo’s contact address and booking link will be added before launch.</p></div><form id="brief-form"><label>Your name<input name="name" autocomplete="name" required maxlength="120"/></label><label>Email<input name="email" type="email" autocomplete="email" required maxlength="200"/></label><label>Website<input name="website" type="url" placeholder="https://yourwebsite.com" required maxlength="500"/></label><label>{audit?'What would you like the audit to focus on?':'What would you like help with?'}<textarea name="message" rows="5" required maxlength="4000"></textarea></label><button class="button" type="submit">Prepare enquiry brief</button><p id="form-status" role="status"></p><div id="brief-output" hidden><label>Your prepared brief<textarea id="prepared" rows="10" readonly></textarea></label><button id="copy-brief" class="button secondary" type="button">Copy brief</button></div></form></>:<><div class="notice"><strong>Draft page — publication details pending.</strong><p>This page requires Leo’s business and contact details and a review of the final website configuration before launch.</p></div><h2>{page==='privacy'?'This preview':'Using this preview'}</h2><p>{page==='privacy'?'This preview has no analytics, tracking scripts or enquiry submission service. The brief preparation tool runs in your browser and does not send or save the information you enter. Hosting services may process technical request information.':'The project information shown is a preview. Illustrative search examples are not client performance data. Service scope, fees and delivery dates are agreed separately before work begins.'}</p><p>{page==='privacy'?'The published notice must explain the chosen hosting, contact, scheduling and analytics services, retention periods and how to make a privacy request.':'Client names identify selected work. Detailed case studies and supporting evidence are still being prepared. The final terms must identify the business and its contact details.'}</p></>}</section><script>const form=document.querySelector('#brief-form');form?.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(form as HTMLFormElement);const result=`RankwithLeo enquiry\n\nName: ${data.get('name')}\nEmail: ${data.get('email')}\nWebsite: ${data.get('website')}\n\n${data.get('message')}`;(document.querySelector('#prepared') as HTMLTextAreaElement).value=result;(document.querySelector('#brief-output') as HTMLElement).hidden=false;document.querySelector('#form-status')!.textContent='Brief prepared. Nothing has been sent.';});document.querySelector('#copy-brief')?.addEventListener('click',async()=>{const field=document.querySelector('#prepared') as HTMLTextAreaElement;try{await navigator.clipboard.writeText(field.value);document.querySelector('#form-status')!.textContent='Brief copied. Nothing has been sent.';}catch{field.focus();field.select();document.querySelector('#form-status')!.textContent='Select and copy the brief manually.';}});</script></Layout>

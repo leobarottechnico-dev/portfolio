@@ -1,0 +1,68 @@
+---
+import '../styles.css';
+import '../refinements.css';
+import '@fontsource-variable/archivo';
+
+const {
+  title = 'Agentic SEO, directed by Leo',
+  description = 'RankwithLeo: Agentic SEO, local SEO, content and custom websites. Strategy and execution led personally by Leo.',
+  noindex = false,
+} = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | RankwithLeo</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#081a17" />
+    <meta property="og:title" content={`${title} | RankwithLeo`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header wrap">
+      <a href="/" class="brand" aria-label="RankwithLeo home">Rankwith<span>Leo</span></a>
+      <details class="mobile-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="/services/">Services</a>
+          <a href="/work/">Work</a>
+          <a href="/about/">About Leo</a>
+          <a href="/contact/">Book a Strategy Call</a>
+        </nav>
+      </details>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a aria-current={path.startsWith('/services') ? 'page' : undefined} href="/services/">Services</a>
+        <a href="/#approach">Approach</a>
+        <a aria-current={path.startsWith('/work') ? 'page' : undefined} href="/work/">Work</a>
+        <a aria-current={path === '/about/' ? 'page' : undefined} href="/about/">About Leo</a>
+      </nav>
+      <a class="button header-cta" href="/contact/">Book a Strategy Call</a>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="wrap footer">
+      <div>
+        <a href="/" class="brand">Rankwith<span>Leo</span></a>
+        <p>Search creates opportunity.<br />Let’s find yours.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/services/">Services</a>
+        <a href="/work/">Selected work</a>
+        <a href="/about/">About Leo</a>
+        <a href="/audit/">Request an audit</a>
+      </nav>
+      <div>
+        <p>Working with businesses worldwide.</p>
+        <small>© {new Date().getFullYear()} RankwithLeo</small>
+        <div class="legal-links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></div>
+      </div>
+    </footer>
+  </body>
+</html>

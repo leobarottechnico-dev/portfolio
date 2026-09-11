@@ -1,0 +1,18 @@
+<svg viewBox="0 0 480 360" role="img" aria-labelledby="local-map-title local-map-desc">
+  <title id="local-map-title">Your business: illustrative local ranking heat map</title>
+  <desc id="local-map-desc">A fictional street map with a grid of twenty-five green markers labeled 1. Your business is marked in the centre. This is a conceptual example, not Google Maps data or a guarantee of number-one rankings.</desc>
+  <defs><pattern id="map-blocks" width="80" height="64" patternUnits="userSpaceOnUse"><rect width="80" height="64" fill="#e2e9dc"/><rect x="7" y="7" width="66" height="50" rx="4" fill="#cbd7c4"/></pattern></defs>
+  <rect width="480" height="360" rx="12" fill="url(#map-blocks)"/>
+  <path d="M390 0C350 86 437 149 398 221S356 315 386 360" fill="none" stroke="#b2d9e5" stroke-width="36"/>
+  <path d="M0 304L480 64M112 0L283 360" fill="none" stroke="#fafbf6" stroke-width="14"/>
+  <path d="M0 304L480 64M112 0L283 360" fill="none" stroke="#d2c6a3" stroke-width="2"/>
+  {[0,1,2,3,4].map(row => [0,1,2,3,4].map(col => <g transform={`translate(${64 + col * 88} ${48 + row * 66})`}>
+    <circle r="19" fill="#087544" stroke="#fff" stroke-width="2"/>
+    <text y="6" text-anchor="middle" fill="#fff" font-size="19" font-weight="750">1</text>
+  </g>))}
+  <path d="M240 147V159" stroke="#082b21" stroke-width="3"/>
+  <rect x="154" y="110" width="172" height="38" rx="6" fill="#082b21"/>
+  <text x="240" y="135" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">Your business</text>
+  <circle cx="240" cy="180" r="24" fill="none" stroke="#082b21" stroke-width="3"/>
+</svg>
+<style>svg { display:block; width:100%; height:auto; margin-block:24px 16px; }</style>
