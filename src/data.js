@@ -9,8 +9,6 @@ export const services = [
   {slug:'growth-support',name:'Growth Support',summary:'Keep priority website and operational work moving with support scoped around your business.',body:'Get focused help with the website and operational tasks competing for your time, including custom WordPress pages, content updates and virtual assistance. Where a repeatable task is a good fit for automation, we can scope that separately and keep people focused on work that needs judgment.',items:['Custom WordPress pages','Website content updates','Research and administrative support','Ongoing tasks scoped together']}
 ];
 export const projects = [
- {slug:'dayjob',name:'Dayjob.com.au',domain:'dayjob.com.au',industry:'Recruitment',symbol:'DJ',color:'blue'},
  {slug:'antons-plumbing',name:'Antons Plumbing & Gas',domain:'antonsplumbingandgas.com.au',industry:'Plumbing & trades',symbol:'AP',color:'mint'},
- {slug:'antons-renovations',name:'Antons Renovations',domain:'antonsrenovations.com.au',industry:'Renovations',symbol:'AR',color:'gold'},
- {slug:'christies-real-estate',name:'Christie’s Real Estate, Puerto Rico',domain:null,industry:'Real estate',symbol:'CR',color:'blue'}
+ {slug:'antons-renovations',name:'Antons Renovations',domain:'antonsrenovations.com.au',industry:'Renovations',symbol:'AR',color:'gold'}
 ];

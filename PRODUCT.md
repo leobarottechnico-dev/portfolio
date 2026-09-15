@@ -43,12 +43,10 @@ The portfolio must explain services in practical business terms, show completed 
 
 ## Evidence on Hand
 
-Four client companies were identified for potential case studies:
+The selected-work section is limited to these two client companies:
 
-- Dayjob.com.au
 - AntonsPlumbingAndGas.com.au
 - AntonsRenovations.com.au
-- Christie's Real Estate, Puerto Rico
 
 Public-use permission, project screenshots, project details, testimonials, logos, and measurable outcomes still need confirmation. Future work must not invent performance claims.
 
