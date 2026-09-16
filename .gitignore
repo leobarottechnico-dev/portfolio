@@ -11,3 +11,4 @@ dist/
 assets/
 .DS_Store
 Thumbs.db
+.sanity/
