@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Custom website hosted on Hostinger; not WordPress. Framework remains open, with Astro recommended for the eventual build.
+Custom Astro website hosted on Cloudflare through a Git-connected deployment; not WordPress. Sanity manages editable content and blog posts.
 
 ## Users
 
@@ -31,7 +31,7 @@ The portfolio must explain services in practical business terms, show completed 
 - The site needs a landing page, work/case studies, and the supporting pages required for credibility and conversion.
 - The primary conversion is a strategy consultation; an SEO opportunity audit is the lower-commitment alternative.
 - The website will target a worldwide audience.
-- The final website must be custom-built and hosted on Hostinger, not built with WordPress.
+- The final website must be custom-built and hosted on Cloudflare, not built with WordPress.
 
 ## Brand Commitments
 

@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { posts, blogPage } from '../../sanity-content.js';
+import { imageUrl } from '../../sanity-image.js';
+
+const dateLabel = value => new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(new Date(value));
+const heading = blogPage.heading || 'Ideas for getting found.';
+const highlight = blogPage.highlight || 'And moving forward.';
+const intro = blogPage.intro || 'Practical notes on search, content, websites and the work behind them—written to help you decide what matters next.';
+---
+<Layout title="Blog" description={blogPage.seoDescription || 'Practical notes on Agentic SEO, local search, content, websites and better business workflows from Leo.'}>
+  <section class="wrap blog-index">
+    <header class="blog-lead">
+      <h1>{heading}<br /><em>{highlight}</em></h1>
+      <p>{intro}</p>
+    </header>
+
+    {posts.length ? <div class="post-list">
+      {posts.map((post, index) => <article class:list={['post-row', { featured: index === 0 }]}>
+        <a class="post-link" href={`/blog/${post.slug.current}/`} aria-label={`Read ${post.title}`}>
+          <div class="post-copy">
+            <div class="post-meta"><time datetime={post.publishedAt}>{dateLabel(post.publishedAt)}</time>{post.category && <span>{post.category}</span>}</div>
+            <h2>{post.title}</h2>
+            <p>{post.excerpt}</p>
+            <span class="post-action">Read article <span aria-hidden="true">↗</span></span>
+          </div>
+          {post.coverImage?.asset && <div class="post-image"><img src={imageUrl(post.coverImage, index === 0 ? 1100 : 640)} alt={post.coverImage.alt || ''} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /></div>}
+        </a>
+      </article>)}
+    </div> : <div class="blog-empty">
+      <h2>Nothing published yet.</h2>
+      <p>Leo’s first article will appear here when it’s ready. In the meantime, you can explore the services and selected work.</p>
+      <a class="text-link" href="/services/">Explore services</a>
+    </div>}
+  </section>
+</Layout>
+<style>
+  .blog-index { padding-block: clamp(64px, 7vw, 110px) 120px; }
+  .blog-lead { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .55fr); align-items: end; gap: 4vw; padding-bottom: 70px; }
+  h1 { margin: 0; font-size: clamp(3rem, 6vw, 5.7rem); font-weight: 760; line-height: .98; letter-spacing: -.04em; text-wrap: balance; }
+  h1 em { color: var(--mint); font-style: normal; }
+  .blog-lead p { max-width: 35ch; margin: 0 0 .4rem; color: var(--muted); font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.6; }
+  .post-row { border-top: 1px solid var(--line); }
+  .post-row:last-child { border-bottom: 1px solid var(--line); }
+  .post-link { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(220px, .7fr); gap: 5vw; align-items: center; padding-block: 38px; }
+  .post-copy { min-width: 0; }
+  .post-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; color: var(--muted); font-size: .78rem; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; }
+  .post-meta span { color: var(--mint); }
+  h2 { max-width: 24ch; margin: 20px 0 14px; font-size: clamp(1.7rem, 3vw, 3rem); line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
+  .post-copy p { max-width: 60ch; margin: 0; color: var(--muted); line-height: 1.65; }
+  .post-action { display: inline-block; margin-top: 28px; color: var(--mint); font-size: .9rem; font-weight: 700; }
+  .post-action span { display: inline-block; transition: transform 200ms var(--ease-out); }
+  .post-link:hover .post-action span { transform: translate(3px, -3px); }
+  .post-image { overflow: hidden; border-radius: var(--radius); aspect-ratio: 16 / 10; background: var(--panel); }
+  .post-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 260ms var(--ease-out); }
+  .post-link:hover .post-image img { transform: scale(1.025); }
+  .blog-empty { max-width: 720px; border-top: 1px solid var(--line); padding-top: 48px; }
+  .blog-empty h2 { margin-top: 0; }
+  .blog-empty p { color: var(--muted); line-height: 1.65; }
+  @media (max-width: 760px) { .blog-index { padding-block: 56px 80px; } .blog-lead { grid-template-columns: 1fr; gap: 24px; padding-bottom: 48px; } .post-link { grid-template-columns: 1fr; gap: 24px; } .post-image { order: -1; } }
+  @media (prefers-reduced-motion: reduce) { .post-action span, .post-image img { transition: none; } }
+</style>

@@ -1,0 +1,15 @@
+---
+import { imageUrl } from '../sanity-image.js';
+
+const { node } = Astro.props;
+const src = imageUrl(node, 1280);
+---
+{src && <figure class="article-image">
+  <img src={src} alt={node.alt || ''} loading="lazy" decoding="async" />
+  {node.caption && <figcaption>{node.caption}</figcaption>}
+</figure>}
+<style>
+  .article-image { margin: 3rem 0; }
+  img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+  figcaption { margin-top: .85rem; color: var(--muted); font-size: .88rem; line-height: 1.5; }
+</style>

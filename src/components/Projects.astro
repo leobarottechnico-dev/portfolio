@@ -1,4 +1,4 @@
 ---
-import {projects} from '../data.js';
+import {projects} from '../sanity-content.js';
 ---
 <div class="projects">{projects.map((p,i)=><a class="project" href={`/work/${p.slug}/`}><div class={`project-art ${p.color}`}><span class="project-index">PROJECT / 0{i+1}</span><span class="monogram" aria-hidden="true">{p.symbol}</span><span class="project-industry">{p.industry}</span></div><div class="project-title"><h3>{p.name}</h3><span class="project-action">View</span></div><p>View project overview</p></a>)}</div>
