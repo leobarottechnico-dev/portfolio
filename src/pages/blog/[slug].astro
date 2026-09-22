@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { PortableText } from 'astro-portabletext';
 import BlogBodyImage from '../../components/BlogBodyImage.astro';
+import ArticleHeading from '../../components/ArticleHeading.astro';
 import { posts } from '../../sanity-content.js';
 import { imageUrl } from '../../sanity-image.js';
 
@@ -12,7 +13,20 @@ export function getStaticPaths() {
 const { post } = Astro.props;
 const dateLabel = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(new Date(post.publishedAt));
 const coverUrl = imageUrl(post.coverImage, 1600);
-const components = { type: { image: BlogBodyImage } };
+const usedIds = new Set();
+const headings = [];
+const body = post.body.map(block => {
+  if (block._type !== 'block' || !['h2', 'h3'].includes(block.style)) return block;
+  const title = (block.children || []).map(child => child.text || '').join('').trim();
+  if (!title) return block;
+  const base = title.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'section';
+  let id = base;
+  for (let suffix = 2; usedIds.has(id); suffix++) id = `${base}-${suffix}`;
+  usedIds.add(id);
+  headings.push({ id, title, level: block.style });
+  return { ...block, tocId: id };
+});
+const components = { type: { image: BlogBodyImage }, block: { h2: ArticleHeading, h3: ArticleHeading } };
 ---
 <Layout title={post.seoTitle || post.title} description={post.seoDescription || post.excerpt} ogType="article" ogImage={coverUrl || undefined}>
   <article class="blog-article">
@@ -24,12 +38,40 @@ const components = { type: { image: BlogBodyImage } };
     </div>
     {coverUrl && <figure class="wrap article-cover"><img src={coverUrl} alt={post.coverImage.alt || ''} width="1600" loading="eager" decoding="async" /></figure>}
     <div class="wrap article-grid">
-      <aside class="article-aside"><span>Written by Leo</span><a href="/about/">About the author ↗</a></aside>
-      <div class="article-body"><PortableText value={post.body} components={components} /></div>
+      <aside class="article-aside">
+        {headings.length > 0 && <nav class="toc toc-desktop" aria-label="On this page">
+          <span class="toc-label">On this page</span>
+          <ol>{headings.map(heading => <li class:list={[{ nested: heading.level === 'h3' }]}><a href={`#${heading.id}`} data-toc-link>{heading.title}</a></li>)}</ol>
+        </nav>}
+        <div class="author-note"><span>Written by Leo</span><a href="/about/">About the author ↗</a></div>
+      </aside>
+      <div class="article-main">
+        {headings.length > 0 && <details class="toc-mobile">
+          <summary>On this page <span aria-hidden="true">⌄</span></summary>
+          <nav aria-label="On this page"><ol>{headings.map(heading => <li class:list={[{ nested: heading.level === 'h3' }]}><a href={`#${heading.id}`} data-toc-link>{heading.title}</a></li>)}</ol></nav>
+        </details>}
+        <div class="article-body"><PortableText value={body} components={components} /></div>
+      </div>
     </div>
     <div class="wrap article-end"><a class="text-link" href="/blog/">← Back to all articles</a><a class="text-link" href="/contact/">Discuss a project ↗</a></div>
   </article>
 </Layout>
+<script>
+  const headings = [...document.querySelectorAll<HTMLElement>('.article-body h2[id], .article-body h3[id]')];
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+  if (headings.length && links.length) {
+    const updateActive = () => {
+      const current = [...headings].reverse().find(heading => heading.getBoundingClientRect().top <= 150) || headings[0];
+      links.forEach(link => {
+        if (link.hash === `#${current.id}`) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('hashchange', updateActive);
+    updateActive();
+  }
+</script>
 <style>
   .blog-article { padding-block: 46px 110px; }
   .article-heading { max-width: 1100px; }
@@ -40,13 +82,24 @@ const components = { type: { image: BlogBodyImage } };
   .article-excerpt { max-width: 65ch; color: var(--muted); font-size: clamp(1.1rem, 1.55vw, 1.35rem); line-height: 1.55; }
   .article-cover { margin-block: 68px; }
   .article-cover img { display: block; width: 100%; height: auto; max-height: 690px; object-fit: cover; border-radius: var(--radius); }
-  .article-grid { display: grid; grid-template-columns: minmax(170px, .36fr) minmax(0, 1fr); gap: 7vw; padding-top: 45px; border-top: 1px solid var(--line); }
-  .article-aside { display: grid; align-content: start; gap: 9px; color: var(--muted); font-size: .86rem; }
-  .article-aside a { width: max-content; color: var(--mint); }
+  .article-grid { display: grid; grid-template-columns: minmax(190px, .33fr) minmax(0, 1fr); gap: clamp(38px, 7vw, 110px); padding-top: 45px; border-top: 1px solid var(--line); }
+  .article-aside { min-width: 0; color: var(--muted); font-size: .86rem; }
+  .author-note { display: grid; gap: 9px; margin-top: 32px; }
+  .author-note a { width: max-content; color: var(--mint); }
+  .toc { position: sticky; top: 100px; max-height: calc(100vh - 130px); overflow-y: auto; scrollbar-width: thin; }
+  .toc-label { display: block; margin-bottom: 18px; color: var(--paper); font-size: .76rem; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+  .toc ol, .toc-mobile ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line); }
+  .toc li, .toc-mobile li { margin: 0; }
+  .toc a, .toc-mobile a { display: block; padding: 10px 0 10px 17px; border-left: 2px solid transparent; margin-left: -1px; color: var(--muted); line-height: 1.4; text-decoration: none; transition: color 160ms ease, border-color 160ms ease; }
+  .toc .nested a, .toc-mobile .nested a { padding-left: 31px; font-size: .91em; }
+  .toc a:hover, .toc a[aria-current], .toc-mobile a:hover, .toc-mobile a[aria-current] { color: var(--mint); border-left-color: var(--mint); }
+  .toc-mobile { display: none; }
+  .article-main { min-width: 0; }
   .article-body { max-width: 75ch; min-width: 0; font-size: 1.08rem; line-height: 1.8; overflow-wrap: break-word; }
   .article-body :global(p) { margin: 0 0 1.5em; }
   .article-body :global(h2) { margin: 2.3em 0 .7em; font-size: clamp(1.7rem, 2.8vw, 2.6rem); line-height: 1.15; letter-spacing: -.025em; }
   .article-body :global(h3) { margin: 2em 0 .65em; font-size: clamp(1.3rem, 2vw, 1.8rem); line-height: 1.2; }
+  .article-body :global(h2[id]), .article-body :global(h3[id]) { scroll-margin-top: 110px; }
   .article-body :global(a) { color: var(--mint); text-decoration: underline; text-underline-offset: .2em; }
   .article-body :global(blockquote) { margin: 2em 0; padding: .2em 0 .2em 1.5em; border-left: 1px solid var(--mint); color: var(--paper); font-size: 1.2em; line-height: 1.5; }
   .article-body :global(ul), .article-body :global(ol) { padding-left: 1.4em; margin: 0 0 1.5em; }
@@ -54,5 +107,6 @@ const components = { type: { image: BlogBodyImage } };
   .article-body :global(li::marker) { color: var(--mint); }
   .article-body :global(code) { padding: .1em .3em; border-radius: 4px; background: var(--panel); font-size: .9em; }
   .article-end { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-top: 90px; padding-top: 32px; border-top: 1px solid var(--line); }
-  @media (max-width: 760px) { .blog-article { padding-block: 36px 75px; } .back-link { margin-bottom: 54px; } .article-cover { margin-block: 42px; } .article-grid { grid-template-columns: 1fr; gap: 32px; } .article-aside { display: flex; gap: 20px; } .article-body { font-size: 1rem; } }
+  @media (max-width: 760px) { .blog-article { padding-block: 36px 75px; } .back-link { margin-bottom: 54px; } .article-cover { margin-block: 42px; } .article-grid { grid-template-columns: 1fr; gap: 0; } .article-aside { order: 2; } .toc-desktop { display: none; } .toc-mobile { display: block; margin-bottom: 34px; border-block: 1px solid var(--line); } .toc-mobile summary { display: flex; justify-content: space-between; align-items: center; min-height: 54px; color: var(--paper); font-weight: 700; cursor: pointer; list-style: none; } .toc-mobile summary::-webkit-details-marker { display: none; } .toc-mobile[open] summary span { transform: rotate(180deg); } .toc-mobile nav { padding-bottom: 16px; } .author-note { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); } .article-body { font-size: 1rem; } }
+  @media (prefers-reduced-motion: reduce) { .toc a, .toc-mobile a { transition: none; } }
 </style>
