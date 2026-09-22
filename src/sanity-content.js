@@ -2,32 +2,12 @@ import { createClient } from '@sanity/client';
 import { services as localServices, projects as localProjects } from './data.js';
 import { serviceDetails as localDetails } from './service-details.js';
 import { serviceFaqs as localFaqs } from './service-faqs.js';
+import all from './generated/sanity-content.json';
 
 export const sanityClient = createClient({
   projectId: 'cygey76w', dataset: 'production', apiVersion: '2025-02-19',
   perspective: 'published', useCdn: false, timeout: 15000,
 });
-
-const query = `{
-  "services": *[_type == "portfolioService"],
-  "posts": *[_type == "blogPost" && defined(slug.current) && defined(publishedAt)] | order(publishedAt desc),
-  "pages": *[_type == "sitePage"],
-  "projects": *[_type == "project"] | order(_createdAt asc),
-  "homePage": *[_type == "homePage" && _id == "homePage"][0],
-  "blogPage": *[_type == "blogPage" && _id == "blogPage"][0],
-  "aboutPage": *[_type == "aboutPage" && _id == "aboutPage"][0],
-  "siteSettings": *[_type == "siteSettings" && _id == "siteSettings"][0]
-}`;
-
-const emptyContent = { services: [], posts: [], pages: [], projects: [], homePage: null, blogPage: null, aboutPage: null, siteSettings: null };
-let all;
-try {
-  all = await sanityClient.fetch(query);
-} catch (error) {
-  if (process.env.CF_PAGES === '1') throw error;
-  console.warn(`Sanity content could not be loaded; building with local content. ${error.message}`);
-  all = emptyContent;
-}
 
 const text = (value, fallback) => typeof value === 'string' && value.trim() ? value : fallback;
 const arr = (value, fallback) => Array.isArray(value) && value.length > 0 ? value : fallback;
